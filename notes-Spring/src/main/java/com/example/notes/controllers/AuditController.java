@@ -19,11 +19,11 @@ public class AuditController {
 
     @GetMapping
     public List<AuditLog> getAuditLogs(){
-
+        return auditLogService.getAllAudits();
     }
 
     @GetMapping("/note/{noteId}")
     public List<AuditLog> getNoteAuditLogs(@PathVariable Long noteId){
-
+        return auditLogService.getAllAuditForNote(noteId);
     }
 }
