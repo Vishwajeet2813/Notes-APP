@@ -9,8 +9,10 @@ import com.example.notes.models.User;
 import com.example.notes.repositories.PasswordResetTokenRepository;
 import com.example.notes.repositories.RoleRepository;
 import com.example.notes.repositories.UserRepository;
+import com.example.notes.services.TotoService;
 import com.example.notes.services.UserService;
 import com.example.notes.utils.EmailService;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +45,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    TotoService totoService;
 
     @Override
     public void updateUserRole(Long userId, String roleName) {
@@ -166,6 +171,44 @@ public class UserServiceImpl implements UserService {
         userRepository.save(newUser);
         return newUser;
     }
+
+    @Override
+    public GoogleAuthenticatorKey generate2FASecret(Long userId){
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new RuntimeException("User Not FOUND !!")
+        );
+        GoogleAuthenticatorKey key = totoService.generateSecret();
+        user.setTwoFactorSecret(key.getKey());
+        userRepository.save(user);
+        return key;
+    }
+
+    @Override
+    public boolean validate2FACode(Long userId, int code){
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new RuntimeException("User Not FOUND !!")
+        );
+        return totoService.verifyCode(user.getTwoFactorSecret(), code);
+    }
+
+    @Override
+    public void enable2FA(Long userId){
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new RuntimeException("User Not FOUND !!")
+        );
+        user.setTwoFactorEnabled(true);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void disable2FA(Long userId){
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new RuntimeException("User Not FOUND !!")
+        );
+        user.setTwoFactorEnabled(false);
+        userRepository.save(user);
+    }
+
 
     private UserDTO convertToDto(User user) {
         return new UserDTO(
