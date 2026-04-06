@@ -2,7 +2,7 @@ package com.example.notes.services;
 
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 
-public interface TotoService {
+public interface TotpService {
     GoogleAuthenticatorKey generateSecret();
 
     String getQrCodeUrl(GoogleAuthenticatorKey secret, String username);

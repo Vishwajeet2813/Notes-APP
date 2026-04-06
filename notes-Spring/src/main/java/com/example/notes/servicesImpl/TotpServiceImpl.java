@@ -1,13 +1,13 @@
 package com.example.notes.servicesImpl;
 
-import com.example.notes.services.TotoService;
+import com.example.notes.services.TotpService;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TotpServiceImpl implements TotoService {
+public class TotpServiceImpl implements TotpService {
 
     private final GoogleAuthenticator googleAuthenticator;
 

@@ -9,7 +9,7 @@ import com.example.notes.models.User;
 import com.example.notes.repositories.PasswordResetTokenRepository;
 import com.example.notes.repositories.RoleRepository;
 import com.example.notes.repositories.UserRepository;
-import com.example.notes.services.TotoService;
+import com.example.notes.services.TotpService;
 import com.example.notes.services.UserService;
 import com.example.notes.utils.EmailService;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     EmailService emailService;
 
     @Autowired
-    TotoService totoService;
+    TotpService totoService;
 
     @Override
     public void updateUserRole(Long userId, String roleName) {
