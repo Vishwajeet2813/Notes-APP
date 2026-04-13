@@ -42,10 +42,10 @@ node_modules
 build/
 
 # Java
-resources/
-application.properties
-target/
-*.class
+# resources/
+# application.properties
+# target/
+# *.class
 
 # Logs
 *.log
