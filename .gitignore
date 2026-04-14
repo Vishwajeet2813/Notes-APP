@@ -59,3 +59,5 @@ build/
 # IDE
 .vscode/
 .idea/
+# application.properties
+notes-Spring/src/main/resources/application.properties
