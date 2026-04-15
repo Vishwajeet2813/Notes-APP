@@ -33,6 +33,7 @@ jobs:
       - name: Build Backend
         run: |
           cd notes-Spring
+          chmod +x mvnw
           ./mvnw clean package -DskipTests
 
       - name: Build Docker Images
